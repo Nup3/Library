@@ -25,15 +25,13 @@ function getBooksBorrowedCount(books) {
 }
 
 function getMostCommonGenres(books) {
- let map = {};
- books.forEach((num) => {
-  if (map[num.genre]) {
-   map[num.genre]++;
-  } else {
-   map[num.genre] = 1;
-  }
- });
- return Object.entries(map)
+ const genres =books.reduce((acc, book) => { if (!acc[book.genre]) {
+    acc[book.genre] = 1;}
+      else { acc[book.genre] ++;}
+     return acc;
+}, {});
+  
+ return Object.entries(genres)
   .map(([name, count]) => {
    return {
     name,
